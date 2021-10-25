@@ -1,0 +1,21 @@
+resource "aws_security_group" "test_vpc_sg" {
+  vpc_id      = aws_vpc.test-vpc.id
+  name        = "test vpc security group"
+  description = "securoty group for test vpc"
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [var.MYIP]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = {
+    Name = "allow-ssh"
+  }
+}
